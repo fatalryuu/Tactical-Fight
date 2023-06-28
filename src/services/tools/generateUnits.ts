@@ -1,16 +1,18 @@
-import Unit from "../Units/Unit.ts";
-import Skeleton from "../Units/Skeleton.ts";
-import Centaur from "../Units/Centaur.ts";
-import Bandit from "../Units/Bandit.ts";
-import ElfArcher from "../Units/ElfArcher.ts";
-import SkeletonMage from "../Units/SkeletonMage.ts";
-import Archimage from "../Units/Archimage.ts";
-import Monk from "../Units/Monk.ts";
-import Bishop from "../Units/Bishop.ts";
-import Sirena from "../Units/Sirena.ts";
+import Unit from "../units/Unit.ts";
+import Skeleton from "../units/Skeleton.ts";
+import Centaur from "../units/Centaur.ts";
+import Bandit from "../units/Bandit.ts";
+import ElfArcher from "../units/ElfArcher.ts";
+import SkeletonMage from "../units/SkeletonMage.ts";
+import Archimage from "../units/Archimage.ts";
+import Monk from "../units/Monk.ts";
+import Bishop from "../units/Bishop.ts";
+import Sirena from "../units/Sirena.ts";
+
+type UnitClass = new () => Unit;
 
 const generateUnits = (): Array<Unit> => {
-    const unitClasses: Array<any> = [
+    const unitClasses: Array<UnitClass> = [
         Skeleton,
         Centaur,
         Bandit,

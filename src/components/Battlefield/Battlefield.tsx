@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import s from "./Battlefield.module.css";
 import Team from "../Team/Team.tsx";
 import Unit from "../Unit/Unit.tsx";
-import UnitType from "../../services/Units/Unit.ts";
+import UnitType from "../../services/units/Unit.ts";
 import generateUnits from "../../services/tools/generateUnits.ts";
 
-type PropsType = {}
-
-const Battlefield: React.FC<PropsType> = () => {
+const Battlefield: React.FC = () => {
     const [round, setRound] = useState(1);
     const [units, setUnits] = useState<Array<UnitType>>([]);
     const redTeamUnits = units.slice(0, 6).map((unit) => <Unit name={unit.name} src={unit.src}/>);

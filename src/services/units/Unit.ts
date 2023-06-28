@@ -1,3 +1,5 @@
+import { Type } from "./typeEnum.ts";
+
 export default interface Unit {
     name: string;
     src: string;
