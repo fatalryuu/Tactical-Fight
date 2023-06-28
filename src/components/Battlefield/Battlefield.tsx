@@ -4,23 +4,42 @@ import Team from "./Team/Team.tsx";
 import Unit from "./Team/Unit/Unit.tsx";
 import UnitType from "../../services/units/Unit.ts";
 import generateUnits from "../../services/tools/generateUnits.ts";
+import Queue from "./Queue/Queue.tsx";
 
 const Battlefield: React.FC = () => {
     const [round, setRound] = useState(1);
     const [units, setUnits] = useState<Array<UnitType>>([]);
-    const [currTeam, setCurrTeam] = useState(Math.round(Math.random()));
+    const [index, setIndex] = useState<number>(0);
+    const [currTeam, setCurrTeam] = useState(0);
+    const [queue, setQueue] = useState<Array<UnitType>>([]);
 
     const firstTeamUnits =
         units.slice(0, 6)
             .map((unit: UnitType, index: number) =>
-                <Unit instance={unit} currTeam={currTeam} setCurrTeam={setCurrTeam} team={0} key={index}/>);
+                <Unit instance={unit} currTeam={currTeam} setCurrTeam={setCurrTeam} queue={queue} team={0} key={index}/>);
     const secondTeamUnits =
         units.slice(6, 12)
             .map((unit: UnitType, index: number) =>
-                <Unit instance={unit} currTeam={currTeam} setCurrTeam={setCurrTeam} team={1} key={index}/>);
+                <Unit instance={unit} currTeam={currTeam} setCurrTeam={setCurrTeam} queue={queue} team={1} key={index}/>);
 
     useEffect(() => {
-        setUnits(generateUnits());
+        const units = generateUnits();
+        setUnits(units);
+        const randomIndex = Math.round(Math.random());
+        setIndex(randomIndex);
+        setCurrTeam(randomIndex);
+
+        const firstQueue = units.slice(0, 6).sort((a: UnitType, b: UnitType) => b.initiative - a.initiative);
+        const secondQueue = units.slice(6, 12).sort((a: UnitType, b: UnitType) => b.initiative - a.initiative);
+
+        const queue: Array<UnitType> = [];
+        if (!currTeam) {
+            firstQueue.map((unit: UnitType, index: number) => queue.push(unit, secondQueue[index]));
+        } else {
+            secondQueue.map((unit: UnitType, index: number) => queue.push(unit, firstQueue[index]));
+        }
+        setQueue(queue);
+
     }, []);
 
     return (
@@ -30,6 +49,7 @@ const Battlefield: React.FC = () => {
                 <div className={s.round}>Round {round}</div>
                 <div className={s.vs}>VS</div>
                 <button className={s.defend} onClick={() => setRound(prev => prev + 1)}>Defend</button>
+                <Queue queue={queue} colors={["cyan", "orange"]} first={index}/>
             </div>
             <Team color="orange" units={secondTeamUnits} isActive={!!currTeam}/>
         </div>

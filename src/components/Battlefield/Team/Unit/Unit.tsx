@@ -6,10 +6,11 @@ type PropsType = {
     instance: UnitType,
     currTeam: number,
     setCurrTeam: (curr: number) => void,
+    queue: Array<UnitType>,
     team: number,
 }
 
-const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, team }) => {
+const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, team }) => {
 
     const getColor = () => {
         const diff: number = instance.currHP / instance.maxHP;
@@ -36,7 +37,7 @@ const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, team }) =>
 
     const handleAction = () => {
         if (team !== currTeam) {
-
+            instance.behavior.do();
             currTeam ? setCurrTeam(0) : setCurrTeam(1);
         }
     }

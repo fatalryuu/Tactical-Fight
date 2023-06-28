@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./Team.module.css";
 
+
 type PropsType = {
     color: string,
     units: Array<JSX.Element>,
