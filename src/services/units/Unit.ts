@@ -1,4 +1,5 @@
 import { Type } from "./typeEnum.ts";
+import Behavior from "../behaviors/Behavior.ts";
 
 export default interface Unit {
     name: string;
@@ -8,4 +9,5 @@ export default interface Unit {
     currHP: number;
     damage: number;
     initiative: number;
+    behavior: Behavior;
 }

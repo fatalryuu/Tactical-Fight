@@ -1,3 +1,3 @@
-interface Behavior {
+export default interface Behavior {
     do(): void;
 }

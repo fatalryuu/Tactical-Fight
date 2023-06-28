@@ -1,6 +1,8 @@
 import Unit from "./Unit.ts";
 import { Type } from "./typeEnum.ts";
 import images from "../tools/images.ts";
+import MageAttackBehavior from "../behaviors/MageAttackBehavior.ts";
+import Behavior from "../behaviors/Behavior.ts";
 
 export default class Archimage implements Unit {
     name = "Archimage";
@@ -10,6 +12,9 @@ export default class Archimage implements Unit {
     currHP = 90;
     damage = 30;
     initiative = 40;
+    behavior: Behavior;
 
-    constructor() {}
+    constructor() {
+        this.behavior = new MageAttackBehavior();
+    }
 }

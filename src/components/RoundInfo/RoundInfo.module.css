@@ -11,6 +11,7 @@
 
 .info {
     background-color: white;
+    opacity: 0.7;
     border: 1px solid black;
     border-radius: 15px;
     overflow: auto;

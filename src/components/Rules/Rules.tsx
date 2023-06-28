@@ -12,7 +12,7 @@ const Rules: React.FC = () => {
     return (
         <>
             <div onClick={() => setIsOpen(true)} className={s.icon}>
-                <HelpOutlineIcon fontSize={"large"}/>
+                <HelpOutlineIcon fontSize={"large"} style={{color: "white"}}/>
             </div>
             {isOpen &&
                 <div className={s.wrapper} onClick={handleClose}>

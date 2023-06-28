@@ -1,6 +1,8 @@
 import Unit from "./Unit.ts";
 import { Type } from "./typeEnum.ts";
 import images from "../tools/images.ts";
+import Behavior from "../behaviors/Behavior.ts";
+import MeleeAttackBehavior from "../behaviors/MeleeAttackBehavior.ts";
 
 export default class Skeleton implements Unit {
     name = "Skeleton";
@@ -10,6 +12,9 @@ export default class Skeleton implements Unit {
     currHP = 100;
     damage = 25;
     initiative = 50;
+    behavior: Behavior;
 
-    constructor() {}
+    constructor() {
+        this.behavior = new MeleeAttackBehavior();
+    }
 }

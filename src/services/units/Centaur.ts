@@ -1,6 +1,8 @@
 import Unit from "./Unit.ts";
 import { Type } from "./typeEnum.ts";
 import images from "../tools/images.ts";
+import Behavior from "../behaviors/Behavior.ts";
+import MeleeAttackBehavior from "../behaviors/MeleeAttackBehavior.ts";
 
 export default class Centaur implements Unit {
     name = "Centaur";
@@ -10,6 +12,9 @@ export default class Centaur implements Unit {
     currHP = 150;
     damage = 50;
     initiative = 50;
+    behavior: Behavior;
 
-    constructor() {}
+    constructor() {
+        this.behavior = new MeleeAttackBehavior();
+    }
 }

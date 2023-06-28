@@ -1,6 +1,8 @@
 import Unit from "./Unit.ts";
 import { Type } from "./typeEnum.ts";
 import images from "../tools/images.ts";
+import Behavior from "../behaviors/Behavior.ts";
+import RangeAttackBehavior from "../behaviors/RangeAttackBehavior.ts";
 
 export default class ElfArcher implements Unit {
     name = "Elf Archer";
@@ -10,6 +12,9 @@ export default class ElfArcher implements Unit {
     currHP = 90;
     damage = 45;
     initiative = 60;
+    behavior: Behavior;
 
-    constructor() {}
+    constructor() {
+        this.behavior = new RangeAttackBehavior();
+    }
 }
