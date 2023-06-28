@@ -1,0 +1,40 @@
+.wrapper {
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.round {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.vs {
+    font-size: 5rem;
+    font-weight: 600;
+    margin: 20px;
+}
+
+.defend {
+    border: none;
+    background: #0051ff;
+    width: 100px;
+    height: 30px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+}
+
+.defend:hover {
+    background: #1b25ff;
+}
+
+.defend:active {
+    background: #0f17be;
+}
