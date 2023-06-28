@@ -3,7 +3,6 @@ import s from "./Battlefield.module.css";
 import Team from "../Team/Team.tsx";
 import Unit from "../Unit/Unit.tsx";
 import images from "../../tools/images.ts";
-import RoundInfo from "../RoundInfo/RoundInfo.tsx";
 
 type PropsType = {}
 
@@ -27,7 +26,7 @@ const Battlefield: React.FC<PropsType> = () => {
             <div className={s.middle}>
                 <div className={s.round}>Round {round}</div>
                 <div className={s.vs}>VS</div>
-                <button className={s.defend}>Defend</button>
+                <button className={s.defend} onClick={() => setRound(prev => prev + 1)}>Defend</button>
             </div>
             <Team color="green" units={arr.slice(3, 9)}/>
         </div>
