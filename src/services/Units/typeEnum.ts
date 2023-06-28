@@ -1,0 +1,8 @@
+enum Type {
+    MELEE = "MELEE",
+    RANGE = "RANGE",
+    MAGE = "MAGE",
+    HEALER_SINGLE = "HEALER_SINGLE",
+    HEALER_MASS = "HEALER_MASS",
+    PARALYZER = "PARALYZER",
+}
