@@ -6,7 +6,7 @@ import skeletonMage from "../assets/skeletonMage.png";
 import archimage from "../assets/archimage.png";
 import monk from "../assets/monk.png";
 import bishop from "../assets/bishop.png";
-import siren from "../assets/siren.png";
+import sirena from "../assets/sirena.png";
 
 const images = {
     skeleton: skeleton,
@@ -17,7 +17,7 @@ const images = {
     archimage: archimage,
     monk: monk,
     bishop: bishop,
-    siren: siren,
+    sirena: sirena,
 };
 
 export default images;

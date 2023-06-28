@@ -1,4 +1,4 @@
-enum Type {
+export enum Type {
     MELEE = "MELEE",
     RANGE = "RANGE",
     MAGE = "MAGE",

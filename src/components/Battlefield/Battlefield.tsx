@@ -1,34 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./Battlefield.module.css";
 import Team from "../Team/Team.tsx";
 import Unit from "../Unit/Unit.tsx";
-import images from "../../tools/images.ts";
+import UnitType from "../../services/Units/Unit.ts";
+import generateUnits from "../../services/tools/generateUnits.ts";
 
 type PropsType = {}
 
 const Battlefield: React.FC<PropsType> = () => {
     const [round, setRound] = useState(1);
-    const arr = [
-        <Unit name="Skeleton" src={images.skeleton}/>,
-        <Unit name="Centaur" src={images.centaur}/>,
-        <Unit name="Bandit" src={images.bandit}/>,
-        <Unit name="Elf Archer" src={images.elfArcher}/>,
-        <Unit name="Skeleton mage" src={images.skeletonMage}/>,
-        <Unit name="Archimage" src={images.archimage}/>,
-        <Unit name="Monk" src={images.monk}/>,
-        <Unit name="Bishop" src={images.bishop}/>,
-        <Unit name="Sirena" src={images.siren}/>
-    ];
+    const [units, setUnits] = useState<Array<UnitType>>([]);
+    const redTeamUnits = units.slice(0, 6).map((unit) => <Unit name={unit.name} src={unit.src}/>);
+    const greenTeamUnits = units.slice(6, 12).map((unit) => <Unit name={unit.name} src={unit.src}/>);
+
+    useEffect(() => {
+        setUnits(generateUnits());
+    }, []);
 
     return (
         <div className={s.wrapper}>
-            <Team color="red" units={arr.slice(0, 6)}/>
+            <Team color="red" units={redTeamUnits}/>
             <div className={s.middle}>
                 <div className={s.round}>Round {round}</div>
                 <div className={s.vs}>VS</div>
                 <button className={s.defend} onClick={() => setRound(prev => prev + 1)}>Defend</button>
             </div>
-            <Team color="green" units={arr.slice(3, 9)}/>
+            <Team color="green" units={greenTeamUnits}/>
         </div>
     );
 };

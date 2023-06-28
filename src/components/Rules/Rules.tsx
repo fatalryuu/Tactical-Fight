@@ -3,7 +3,7 @@ import s from "./Rules.module.css";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 const Rules: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleClose = () => {
         setIsOpen(false);
