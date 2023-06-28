@@ -3,10 +3,11 @@ import { Type } from "./typeEnum.ts";
 import images from "../tools/images.ts";
 
 export default class SkeletonMage implements Unit {
-    name = "SkeletonMage";
+    name = "Skeleton Mage";
     src = images.skeletonMage;
     unitType: Type = Type.MAGE;
-    hp = 50;
+    maxHP = 50;
+    currHP = 50;
     damage = 20;
     initiative = 40;
 

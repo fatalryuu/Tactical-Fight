@@ -6,7 +6,8 @@ export default class Archimage implements Unit {
     name = "Archimage";
     src = images.archimage;
     unitType: Type = Type.MAGE;
-    hp = 90;
+    maxHP = 90;
+    currHP = 90;
     damage = 30;
     initiative = 40;
 

@@ -4,7 +4,8 @@ export default interface Unit {
     name: string;
     src: string;
     unitType: Type;
-    hp: number;
+    maxHP: number;
+    currHP: number;
     damage: number;
     initiative: number;
 }

@@ -6,7 +6,8 @@ export default class Centaur implements Unit {
     name = "Centaur";
     src = images.centaur;
     unitType: Type = Type.MELEE;
-    hp = 150;
+    maxHP = 150;
+    currHP = 150;
     damage = 50;
     initiative = 50;
 

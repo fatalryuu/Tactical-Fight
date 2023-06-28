@@ -6,7 +6,8 @@ export default class Bandit implements Unit {
     name = "Bandit";
     src = images.bandit;
     unitType: Type = Type.RANGE;
-    hp = 75;
+    maxHP = 75;
+    currHP = 75;
     damage = 30;
     initiative = 60;
 

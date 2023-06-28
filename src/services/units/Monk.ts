@@ -6,7 +6,8 @@ export default class Monk implements Unit {
     name = "Monk";
     src = images.monk;
     unitType: Type = Type.HEALER_SINGLE;
-    hp = 90;
+    maxHP = 90;
+    currHP = 90;
     damage = 40;
     initiative = 20;
 
