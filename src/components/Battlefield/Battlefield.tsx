@@ -3,6 +3,7 @@ import s from "./Battlefield.module.css";
 import Team from "../Team/Team.tsx";
 import Unit from "../Unit/Unit.tsx";
 import images from "../../tools/images.ts";
+import RoundInfo from "../RoundInfo/RoundInfo.tsx";
 
 type PropsType = {}
 

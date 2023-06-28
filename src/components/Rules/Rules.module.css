@@ -1,0 +1,63 @@
+.icon {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100vw;
+    height: 100vh;
+}
+
+@keyframes slideInAnimation {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.rules {
+    position: relative;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin: 20px auto;
+    padding: 15px 25px;
+    height: 850px;
+    width: 1000px;
+    animation: slideInAnimation 0.2s ease-in-out;
+}
+
+.header {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.close {
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border: none;
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    background: none;
+}
+
+.list {
+    list-style: decimal;
+}
+
+.list li {
+
+}
