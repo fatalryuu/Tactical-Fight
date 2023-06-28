@@ -37,6 +37,7 @@ const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, tea
 
     const handleAction = () => {
         if (team !== currTeam) {
+            console.log(queue);
             instance.behavior.do();
             currTeam ? setCurrTeam(0) : setCurrTeam(1);
         }

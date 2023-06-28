@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import s from "./Battlefield.module.css";
 import Team from "./Team/Team.tsx";
-import Unit from "./Team/Unit/Unit.tsx";
 import UnitType from "../../services/units/Unit.ts";
 import generateUnits from "../../services/tools/generateUnits.ts";
 import Queue from "./Queue/Queue.tsx";
@@ -11,16 +10,9 @@ const Battlefield: React.FC = () => {
     const [units, setUnits] = useState<Array<UnitType>>([]);
     const [index, setIndex] = useState<number>(0);
     const [currTeam, setCurrTeam] = useState(0);
+    const [firstQueue, setFirstQueue] = useState<Array<UnitType>>([]);
+    const [secondQueue, setSecondQueue] = useState<Array<UnitType>>([]);
     const [queue, setQueue] = useState<Array<UnitType>>([]);
-
-    const firstTeamUnits =
-        units.slice(0, 6)
-            .map((unit: UnitType, index: number) =>
-                <Unit instance={unit} currTeam={currTeam} setCurrTeam={setCurrTeam} queue={queue} team={0} key={index}/>);
-    const secondTeamUnits =
-        units.slice(6, 12)
-            .map((unit: UnitType, index: number) =>
-                <Unit instance={unit} currTeam={currTeam} setCurrTeam={setCurrTeam} queue={queue} team={1} key={index}/>);
 
     useEffect(() => {
         const units = generateUnits();
@@ -31,6 +23,8 @@ const Battlefield: React.FC = () => {
 
         const firstQueue = units.slice(0, 6).sort((a: UnitType, b: UnitType) => b.initiative - a.initiative);
         const secondQueue = units.slice(6, 12).sort((a: UnitType, b: UnitType) => b.initiative - a.initiative);
+        setFirstQueue(firstQueue);
+        setSecondQueue(secondQueue);
 
         const queue: Array<UnitType> = [];
         if (!currTeam) {
@@ -44,14 +38,28 @@ const Battlefield: React.FC = () => {
 
     return (
         <div className={s.wrapper}>
-            <Team color="cyan" units={firstTeamUnits} isActive={!currTeam}/>
+            <Team color="cyan"
+                  units={units}
+                  currTeam={currTeam}
+                  setCurrTeam={setCurrTeam}
+                  queue={firstQueue}
+                  index={0}
+                  isActive={!currTeam}
+            />
             <div className={s.middle}>
                 <div className={s.round}>Round {round}</div>
                 <div className={s.vs}>VS</div>
                 <button className={s.defend} onClick={() => setRound(prev => prev + 1)}>Defend</button>
                 <Queue queue={queue} colors={["cyan", "orange"]} first={index}/>
             </div>
-            <Team color="orange" units={secondTeamUnits} isActive={!!currTeam}/>
+            <Team color="orange"
+                  units={units}
+                  currTeam={currTeam}
+                  setCurrTeam={setCurrTeam}
+                  queue={secondQueue}
+                  index={1}
+                  isActive={!!currTeam}
+            />
         </div>
     );
 };
