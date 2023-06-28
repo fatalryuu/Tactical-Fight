@@ -8,8 +8,8 @@ import generateUnits from "../../services/tools/generateUnits.ts";
 const Battlefield: React.FC = () => {
     const [round, setRound] = useState(1);
     const [units, setUnits] = useState<Array<UnitType>>([]);
-    const redTeamUnits = units.slice(0, 6).map((unit: UnitType) => <Unit info={unit}/>);
-    const greenTeamUnits = units.slice(6, 12).map((unit: UnitType) => <Unit info={unit}/>);
+    const redTeamUnits = units.slice(0, 6).map((unit: UnitType, index: number) => <Unit info={unit} key={index}/>);
+    const greenTeamUnits = units.slice(6, 12).map((unit: UnitType, index: number) => <Unit info={unit} key={index}/>);
 
     useEffect(() => {
         setUnits(generateUnits());
