@@ -36,12 +36,12 @@ const Battlefield: React.FC = () => {
 
     //next round
     useEffect(() => {
-        if (iterator && iterator === queue.length - 1) {
+        if (iterator && iterator === queue.length) {
             const firstQueue = units.slice(0, 6)
-                .filter((unit: UnitType) => unit.currHP > 0)
+                .filter((unit: UnitType) => unit.status !== "dead")
                 .sort((a: UnitType, b: UnitType) => b.initiative - a.initiative);
             const secondQueue = units.slice(6, 12)
-                .filter((unit: UnitType) => unit.currHP > 0)
+                .filter((unit: UnitType) => unit.status !== "dead")
                 .sort((a: UnitType, b: UnitType) => b.initiative - a.initiative);
 
             const queue: Array<UnitType> = [];
