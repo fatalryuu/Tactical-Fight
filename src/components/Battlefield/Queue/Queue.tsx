@@ -5,32 +5,19 @@ import UnitType from "../../../services/units/Unit.ts";
 type PropsType = {
     queue: Array<UnitType>,
     colors: Array<string>,
-    first: number,
 }
 
-const Queue: React.FC<PropsType> = ({ queue, colors, first }) => {
-    let indexForFirstTeam: number;
-    let indexForSecondTeam: number;
-    if (first) {
-        indexForFirstTeam = 1;
-        indexForSecondTeam = 0;
-    } else {
-        indexForFirstTeam = 0;
-        indexForSecondTeam = 1;
-    }
-
+const Queue: React.FC<PropsType> = ({ queue, colors }) => {
     return (
         <div className={s.wrapper}>
             <h2 className={s.header}>Order</h2>
             <ul className={s.list}>
-                {queue.map((q: UnitType, index: number) =>
-                    <li style={{ color: index % 2 === 0 ?
-                            colors[indexForFirstTeam] :
-                            colors[indexForSecondTeam] }}
+                {queue.map((unit: UnitType, index: number) =>
+                    <li style={{ color: unit.team === 0 ? colors[0] : colors[1] }}
                         className={s.element}
                         key={index}
                     >
-                        {q.name}
+                        {unit.name}
                     </li>)
                 }
             </ul>

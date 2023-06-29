@@ -23,6 +23,9 @@
 }
 
 .defend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
     background: #0051ff;
     width: 100px;

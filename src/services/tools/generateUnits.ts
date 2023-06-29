@@ -30,6 +30,10 @@ const generateUnits = (): Array<Unit> => {
         const randomIndex = Math.floor(Math.random() * unitClasses.length);
         const UnitClass = unitClasses[randomIndex];
         const unitInstance = new UnitClass();
+        unitInstance.id = units.length;
+        if (units.length > 5) {
+            unitInstance.team = 1;
+        }
         units.push(unitInstance);
     }
 

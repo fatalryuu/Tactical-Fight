@@ -27,7 +27,7 @@ const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, ite
     };
 
     const getOverlayStyle = () => {
-        if (instance.currHP === 0) {
+        if (instance.status === "dead") {
             return { backgroundColor: "rgba(0, 0, 0, 0.5)" };
         } else if (getColor() === "red") {
             return { backgroundColor: "rgba(255, 0, 0, 0.5)" };
@@ -40,17 +40,20 @@ const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, ite
 
     const handleAction = () => {
         if (team !== currTeam) {
-            const i = Math.floor(iterator);
-            queue[i].behavior.do(queue[i], instance);
-            setIterator(prev => prev + 0.5);
+            queue[iterator].behavior.do(queue[iterator], instance);
+            setIterator(prev => prev + 1);
             currTeam ? setCurrTeam(0) : setCurrTeam(1);
         }
     };
 
+    const outlineStyle = queue[iterator].id === instance.id ?
+        (instance.team === 0 ? `${s.attacker} ${s.cyan}` : `${s.attacker} ${s.orange}`)
+        : "";
+
     return (
         <div className={s.wrapper} onClick={handleAction}>
             <h2 className={s.header}>{instance.name}</h2>
-            <div className={s.image__wrapper}>
+            <div className={`${s.image__wrapper} ${outlineStyle}`}>
                 <img src={instance.src} alt={instance.name}
                      className={instance.currHP === 0 ? `${s.image} ${s.dead}` : s.image}/>
                 <img src={icons[instance.unitType]} alt="" className={s.type}/>

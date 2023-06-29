@@ -7,6 +7,14 @@
     cursor: pointer;
 }
 
+.attacker.cyan {
+    box-shadow: 0 0 30px 10px cyan;
+}
+
+.attacker.orange {
+    box-shadow: 0 0 30px 10px orange;
+}
+
 .header {
     margin-bottom: 10px;
 }
@@ -53,7 +61,7 @@
     width: 150px;
     text-align: center;
     border-radius: 10px;
-    margin-top: 5px;
+    margin-top: 15px;
 }
 
 .green {

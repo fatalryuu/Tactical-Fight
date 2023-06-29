@@ -1,7 +1,10 @@
 import { Type } from "./typeEnum.ts";
 import Behavior from "../behaviors/Behavior.ts";
 
+export type StatusType = null | "paralyzed" | "defending" | "dead";
+
 export default interface Unit {
+    id: number;
     name: string;
     src: string;
     unitType: Type;
@@ -10,5 +13,9 @@ export default interface Unit {
     damage: number;
     initiative: number;
     behavior: Behavior;
+    team: number;
+    status: StatusType;
+
     setCurrHP(damage: number): void;
+    setStatus(status: StatusType): void;
 }

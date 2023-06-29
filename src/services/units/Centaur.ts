@@ -1,10 +1,12 @@
-import Unit from "./Unit.ts";
+import Unit, { StatusType } from "./Unit.ts";
 import { Type } from "./typeEnum.ts";
 import images from "../tools/images.ts";
 import Behavior from "../behaviors/Behavior.ts";
 import MeleeAttackBehavior from "../behaviors/MeleeAttackBehavior.ts";
+import { manageHP } from "../tools/manageHP.ts";
 
 export default class Centaur implements Unit {
+    id = 0;
     name = "Centaur";
     src = images.centaur;
     unitType: Type = Type.MELEE;
@@ -13,12 +15,18 @@ export default class Centaur implements Unit {
     damage = 50;
     initiative = 50;
     behavior: Behavior;
+    team = 0;
+    status: StatusType = null;
 
     constructor() {
         this.behavior = new MeleeAttackBehavior();
     }
 
     setCurrHP(damage: number): void {
-        this.currHP = (this.currHP - damage) <= 0 ? 0 : this.currHP - damage;
+        manageHP(this, damage);
+    }
+
+    setStatus(status: StatusType): void {
+        this.status = status;
     }
 }
