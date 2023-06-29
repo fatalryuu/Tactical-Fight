@@ -4,6 +4,8 @@ import mage from '../assets/icons/mage.png';
 import healer_single from '../assets/icons/healer_single.png';
 import healer_mass from '../assets/icons/healer_mass.png';
 import lightning from '../assets/icons/lightning.png';
+import paralyzed from '../assets/icons/paralyzed.png';
+import shield from '../assets/icons/shield.png';
 
 const icons = {
     "MELEE": sword,
@@ -12,6 +14,8 @@ const icons = {
     "HEALER_SINGLE": healer_single,
     "HEALER_MASS": healer_mass,
     "PARALYZER": lightning,
+    "PARALYZED": paralyzed,
+    "DEFENDING": shield,
 };
 
 export default icons;

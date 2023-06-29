@@ -49,6 +49,26 @@
     width: 150px;
 }
 
+.hidden {
+    display: none;
+}
+
+.defend {
+    display: block;
+    position: absolute;
+    width: 30px;
+    top: 5px;
+    left: 5px;
+}
+
+.paralyzed {
+    display: block;
+    position: absolute;
+    height: 25px;
+    top: 40px;
+    left: 10px;
+}
+
 .overlay {
     position: absolute;
     top: 0;

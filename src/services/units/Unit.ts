@@ -1,7 +1,7 @@
 import { Type } from "./typeEnum.ts";
 import Behavior from "../behaviors/Behavior.ts";
 
-export type StatusType = null | "paralyzed" | "defending" | "dead";
+export type StatusType = null | "paralyzed" | "defending" | "defending paralyzed" | "dead";
 
 export default interface Unit {
     id: number;

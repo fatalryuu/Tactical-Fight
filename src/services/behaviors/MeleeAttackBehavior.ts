@@ -2,7 +2,11 @@ import Behavior from "./Behavior.ts";
 import Unit from "../units/Unit.ts";
 
 export default class MeleeAttackBehavior implements Behavior {
-    do(attacker: Unit, target: Unit, units: Array<Unit>): void {
-        target.setCurrHP(attacker.damage);
+    do(target: Unit, attacker: Unit, units: Array<Unit>): void {
+        if (target.status?.includes("defending")) {
+            target.setCurrHP(attacker.damage / 2.0);
+        } else {
+            target.setCurrHP(attacker.damage);
+        }
     }
 }

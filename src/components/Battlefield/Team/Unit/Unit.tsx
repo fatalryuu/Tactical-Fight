@@ -41,18 +41,42 @@ const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, ite
 
     const handleAction = () => {
         if (instance.status !== "dead") {
-            if (queue[iterator].unitType === Type.HEALER_SINGLE || queue[iterator].unitType === Type.HEALER_MASS) {
-                if (queue[iterator].unitType === Type.HEALER_SINGLE) {
-                    queue[iterator].behavior.do(queue[iterator], instance);
-                    setIterator(prev => prev + 1);
-                    currTeam ? setCurrTeam(0) : setCurrTeam(1);
-                } else {
-                    queue[iterator].behavior.do(queue[iterator], instance, queue);
-                    setIterator(prev => prev + 1);
-                    currTeam ? setCurrTeam(0) : setCurrTeam(1);
-                }
-            } else if (team !== currTeam) {
-                queue[iterator].behavior.do(queue[iterator], instance);
+            let isDone = false;
+            switch (queue[iterator].unitType) {
+                case Type.HEALER_SINGLE:
+                    queue[iterator].behavior.do(instance, queue[iterator]);
+                    isDone = true;
+                    break;
+                case Type.HEALER_MASS:
+                    queue[iterator].behavior.do(instance, queue[iterator], queue);
+                    isDone = true;
+                    break;
+                case Type.MAGE:
+                    if (team !== currTeam) {
+                        queue[iterator].behavior.do(instance, queue[iterator], queue);
+                        isDone = true;
+                    }
+                    break;
+                case Type.PARALYZER:
+                    if (team !== currTeam) {
+                        queue[iterator].behavior.do(instance, queue[iterator]);
+                        isDone = true;
+                    }
+                    break;
+                case Type.RANGE:
+                    if (team !== currTeam) {
+                        queue[iterator].behavior.do(instance, queue[iterator]);
+                        isDone = true;
+                    }
+                    break;
+                case Type.MELEE:
+                    if (team !== currTeam) {
+                        queue[iterator].behavior.do(instance, queue[iterator]);
+                        isDone = true;
+                    }
+                    break;
+            }
+            if (isDone) {
                 setIterator(prev => prev + 1);
                 currTeam ? setCurrTeam(0) : setCurrTeam(1);
             }
@@ -70,6 +94,8 @@ const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, ite
                 <img src={instance.src} alt={instance.name}
                      className={instance.currHP === 0 ? `${s.image} ${s.dead}` : s.image}/>
                 <img src={icons[instance.unitType]} alt="" className={s.type}/>
+                <img src={icons.DEFENDING} alt="" className={instance.status?.includes("defending") ? s.defend : s.hidden}/>
+                <img src={icons.PARALYZED} alt="" className={instance.status?.includes("paralyzed") ? s.paralyzed : s.hidden}/>
                 <div className={s.damage}>{instance.damage}</div>
                 <div className={s.overlay} style={getOverlayStyle()}/>
             </div>

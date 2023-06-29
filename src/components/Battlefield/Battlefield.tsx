@@ -34,15 +34,28 @@ const Battlefield: React.FC = () => {
 
     }, []);
 
-    //next round
     useEffect(() => {
+        //for paralyzed
+        if (iterator && iterator !== queue.length && queue[iterator].status?.includes("paralyzed")) {
+            setIterator(prev => prev + 1);
+        }
+        //next round
         if (iterator && iterator === queue.length) {
-            const firstQueue = units.slice(0, 6)
+            const newUnits = units
                 .filter((unit: UnitType) => unit.status !== "dead")
+                .map((unit: UnitType) => {
+                    if (unit.status?.includes("defending")) {
+                        if (unit.status === "defending") {
+                            unit.setStatus(null);
+                        } else {
+                            unit.setStatus("paralyzed");
+                        }
+                    }
+                    return unit;
+                })
                 .sort((a: UnitType, b: UnitType) => b.initiative - a.initiative);
-            const secondQueue = units.slice(6, 12)
-                .filter((unit: UnitType) => unit.status !== "dead")
-                .sort((a: UnitType, b: UnitType) => b.initiative - a.initiative);
+            const firstQueue = newUnits.filter((unit: UnitType) => unit.team === 0);
+            const secondQueue = newUnits.filter((unit: UnitType) => unit.team === 1);
 
             const queue: Array<UnitType> = [];
             let index = 0;
@@ -63,6 +76,7 @@ const Battlefield: React.FC = () => {
         }
     }, [iterator]);
 
+    //defend
     const handleDefend = () => {
         queue[iterator].setStatus("defending");
         currTeam ? setCurrTeam(0) : setCurrTeam(1);
