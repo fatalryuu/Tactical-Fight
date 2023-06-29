@@ -42,9 +42,15 @@ const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, ite
     const handleAction = () => {
         if (instance.status !== "dead") {
             if (queue[iterator].unitType === Type.HEALER_SINGLE || queue[iterator].unitType === Type.HEALER_MASS) {
-                queue[iterator].behavior.do(queue[iterator], instance);
-                setIterator(prev => prev + 1);
-                currTeam ? setCurrTeam(0) : setCurrTeam(1);
+                if (queue[iterator].unitType === Type.HEALER_SINGLE) {
+                    queue[iterator].behavior.do(queue[iterator], instance);
+                    setIterator(prev => prev + 1);
+                    currTeam ? setCurrTeam(0) : setCurrTeam(1);
+                } else {
+                    queue[iterator].behavior.do(queue[iterator], instance, queue);
+                    setIterator(prev => prev + 1);
+                    currTeam ? setCurrTeam(0) : setCurrTeam(1);
+                }
             } else if (team !== currTeam) {
                 queue[iterator].behavior.do(queue[iterator], instance);
                 setIterator(prev => prev + 1);
