@@ -17,4 +17,8 @@ export default class Skeleton implements Unit {
     constructor() {
         this.behavior = new MeleeAttackBehavior();
     }
+
+    setCurrHP(damage: number): void {
+        this.currHP = (this.currHP - damage) <= 0 ? 0 : this.currHP - damage;
+    }
 }

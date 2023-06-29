@@ -7,16 +7,18 @@ type PropsType = {
     currTeam: number,
     setCurrTeam: (curr: number) => void,
     queue: Array<UnitType>,
+    iterator: number,
+    setIterator: (iterator: number | ((prev: number) => number)) => void,
     team: number,
 }
 
-const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, team }) => {
+const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, iterator, setIterator, team }) => {
 
     const getColor = () => {
         const diff: number = instance.currHP / instance.maxHP;
         if (diff <= 0.3) {
             return "red";
-        } else if (diff <= 0.7) {
+        } else if (diff <= 0.6) {
             return "yellow";
         } else {
             return "green";
@@ -24,7 +26,7 @@ const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, tea
     };
 
     const getOverlayStyle = () => {
-        if (instance.currHP <= 0) {
+        if (instance.currHP === 0) {
             return { backgroundColor: "rgba(0, 0, 0, 0.5)" };
         } else if (getColor() === "red") {
             return { backgroundColor: "rgba(255, 0, 0, 0.5)" };
@@ -37,8 +39,9 @@ const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, tea
 
     const handleAction = () => {
         if (team !== currTeam) {
-            console.log(queue);
-            instance.behavior.do();
+            const i = Math.floor(iterator);
+            queue[i].behavior.do(queue[i], instance);
+            setIterator(prev => prev + 0.5);
             currTeam ? setCurrTeam(0) : setCurrTeam(1);
         }
     }

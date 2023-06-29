@@ -9,18 +9,27 @@ type PropsType = {
     currTeam: number,
     setCurrTeam: (curr: number) => void,
     queue: Array<UnitType>,
+    iterator: number,
+    setIterator: (iterator: number | ((prev: number) => number)) => void,
     index: number,
     isActive: boolean,
 }
 
-const Team: React.FC<PropsType> = ({ color, units, currTeam, setCurrTeam, queue, index, isActive }) => {
+const Team: React.FC<PropsType> = (props) => {
     const thisTeamUnits =
-        units.slice(index * 6, index * 6 + 6)
+        props.units.slice(props.index * 6, props.index * 6 + 6)
             .map((unit: UnitType, i: number) =>
-                <Unit instance={unit} currTeam={currTeam} setCurrTeam={setCurrTeam} queue={queue} team={index}
-                      key={i}/>);
+                <Unit instance={unit}
+                      currTeam={props.currTeam}
+                      setCurrTeam={props.setCurrTeam}
+                      queue={props.queue}
+                      iterator={props.iterator}
+                      setIterator={props.setIterator}
+                      team={props.index}
+                      key={i}
+                />);
     return (
-        <div style={{ border: `2px solid ${color}` }} className={`${s.wrapper} ${isActive ? s.active : ""}`}>
+        <div style={{ border: `2px solid ${props.color}` }} className={`${s.wrapper} ${props.isActive ? s.active : ""}`}>
             {thisTeamUnits}
         </div>
     );

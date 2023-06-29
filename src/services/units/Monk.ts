@@ -17,4 +17,8 @@ export default class Monk implements Unit {
     constructor() {
         this.behavior = new SingleHealBehavior();
     }
+
+    setCurrHP(damage: number): void {
+        this.currHP = (this.currHP - damage) <= 0 ? 0 : this.currHP - damage;
+    }
 }

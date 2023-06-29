@@ -17,4 +17,8 @@ export default class Archimage implements Unit {
     constructor() {
         this.behavior = new MageAttackBehavior();
     }
+
+    setCurrHP(damage: number): void {
+        this.currHP = (this.currHP - damage) <= 0 ? 0 : this.currHP - damage;
+    }
 }

@@ -19,8 +19,6 @@ const Queue: React.FC<PropsType> = ({ queue, colors, first }) => {
         indexForSecondTeam = 1;
     }
 
-    console.log(queue);
-
     return (
         <div className={s.wrapper}>
             <h2 className={s.header}>Order</h2>

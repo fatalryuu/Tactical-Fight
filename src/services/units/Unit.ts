@@ -10,4 +10,5 @@ export default interface Unit {
     damage: number;
     initiative: number;
     behavior: Behavior;
+    setCurrHP(damage: number): void;
 }

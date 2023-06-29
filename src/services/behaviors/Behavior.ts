@@ -1,3 +1,5 @@
+import Unit from "../units/Unit.ts";
+
 export default interface Behavior {
-    do(): void;
+    do(attacker: Unit, target: Unit): void;
 }

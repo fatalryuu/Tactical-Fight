@@ -13,6 +13,7 @@ const Battlefield: React.FC = () => {
     const [firstQueue, setFirstQueue] = useState<Array<UnitType>>([]);
     const [secondQueue, setSecondQueue] = useState<Array<UnitType>>([]);
     const [queue, setQueue] = useState<Array<UnitType>>([]);
+    const [iterator, setIterator] = useState(0);
 
     useEffect(() => {
         const units = generateUnits();
@@ -42,7 +43,9 @@ const Battlefield: React.FC = () => {
                   units={units}
                   currTeam={currTeam}
                   setCurrTeam={setCurrTeam}
-                  queue={firstQueue}
+                  queue={secondQueue}
+                  iterator={iterator}
+                  setIterator={setIterator}
                   index={0}
                   isActive={!currTeam}
             />
@@ -56,7 +59,9 @@ const Battlefield: React.FC = () => {
                   units={units}
                   currTeam={currTeam}
                   setCurrTeam={setCurrTeam}
-                  queue={secondQueue}
+                  queue={firstQueue}
+                  iterator={iterator}
+                  setIterator={setIterator}
                   index={1}
                   isActive={!!currTeam}
             />

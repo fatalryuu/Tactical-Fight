@@ -1,7 +1,8 @@
 import Behavior from "./Behavior.ts";
+import Unit from "../units/Unit.ts";
 
 export default class SingleHealBehavior implements Behavior {
-    do(): void {
-        console.log("I am healing one");
+    do(attacker: Unit, target: Unit): void {
+        target.setCurrHP(attacker.damage);
     }
 }

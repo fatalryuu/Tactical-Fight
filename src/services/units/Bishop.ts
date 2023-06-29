@@ -17,4 +17,8 @@ export default class Bishop implements Unit {
     constructor() {
         this.behavior = new MassHealBehavior();
     }
+
+    setCurrHP(damage: number): void {
+        this.currHP = (this.currHP - damage) <= 0 ? 0 : this.currHP - damage;
+    }
 }
