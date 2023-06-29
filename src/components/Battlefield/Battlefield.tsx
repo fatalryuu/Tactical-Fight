@@ -28,7 +28,7 @@ const Battlefield: React.FC = () => {
         setSecondQueue(secondQueue);
 
         const queue: Array<UnitType> = [];
-        if (!currTeam) {
+        if (!randomIndex) {
             firstQueue.map((unit: UnitType, index: number) => queue.push(unit, secondQueue[index]));
         } else {
             secondQueue.map((unit: UnitType, index: number) => queue.push(unit, firstQueue[index]));

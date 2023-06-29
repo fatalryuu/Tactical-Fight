@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./Unit.module.css";
 import UnitType from "../../../../services/units/Unit.ts";
+import icons from "../../../../services/tools/icons.ts";
 
 type PropsType = {
     instance: UnitType,
@@ -44,14 +45,17 @@ const Unit: React.FC<PropsType> = ({ instance, currTeam, setCurrTeam, queue, ite
             setIterator(prev => prev + 0.5);
             currTeam ? setCurrTeam(0) : setCurrTeam(1);
         }
-    }
+    };
 
     return (
         <div className={s.wrapper} onClick={handleAction}>
             <h2 className={s.header}>{instance.name}</h2>
             <div className={s.image__wrapper}>
-                <img src={instance.src} alt={instance.name} className={instance.currHP === 0 ? `${s.image} ${s.dead}` : s.image}/>
-                <div className={s.overlay} style={getOverlayStyle()} />
+                <img src={instance.src} alt={instance.name}
+                     className={instance.currHP === 0 ? `${s.image} ${s.dead}` : s.image}/>
+                <img src={icons[instance.unitType]} alt="" className={s.type}/>
+                <div className={s.damage}>{instance.damage}</div>
+                <div className={s.overlay} style={getOverlayStyle()}/>
             </div>
             <div className={`${s.health} ${s[getColor()]}`}>
                 {instance.currHP}/{instance.maxHP}

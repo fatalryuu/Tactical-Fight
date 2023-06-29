@@ -17,6 +17,21 @@
     height: 150px;
 }
 
+.type {
+    height: 25px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.damage {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    color: white;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
+
 .dead {
     filter: grayscale(100%);
 }
