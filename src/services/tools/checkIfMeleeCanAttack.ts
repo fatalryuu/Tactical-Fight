@@ -39,26 +39,31 @@ export const checkIfMeleeCanAttack = (queue: Array<Unit>, instance: Unit, iterat
         matrix.push([battlefield[i], battlefield[i + 1], battlefield[i + 2]]);
     }
 
-    const attackingUnit = queue[iterator];
-    const firstTeamBackLine = matrix[0];
-    const firstTeamFrontLine = matrix[1];
-    const secondTeamFrontLine = matrix[2];
-    const secondTeamBackLine = matrix[3];
+    // const attackingUnit = queue[iterator];
+    // const firstTeamBackLine = matrix[0];
+    // const firstTeamFrontLine = matrix[1];
+    // const secondTeamFrontLine = matrix[2];
+    // const secondTeamBackLine = matrix[3];
 
     const attackerRow = getRow(matrix, queue[iterator]);
     const targetRow = getRow(matrix, instance);
 
-    // if (attackerRow === 0 || attackerRow === 3) {
-    //     if (attackerRow === 0) {
-    //         if (isUnitsAlive(firstTeamFrontLine) && targetRow >= 2) {
-    //             return false;
-    //         }
-    //     } else {
-    //         if (isUnitsAlive(secondTeamFrontLine) && targetRow <= 1) {
-    //             return false;
-    //         }
-    //     }
-    // }
+    //temp
+    if (attackerRow === 0 || attackerRow === 3) {
+        if (isUnitsAlive(queue) && isUnitAlive(instance) && targetRow) {
+            return true;
+        }
+        return true;
+        // if (attackerRow === 0) {
+        //     if (isUnitsAlive(firstTeamFrontLine) && targetRow >= 2) {
+        //         return false;
+        //     }
+        // } else {
+        //     if (isUnitsAlive(secondTeamFrontLine) && targetRow <= 1) {
+        //         return false;
+        //     }
+        // }
+    }
 
     return true;
 }

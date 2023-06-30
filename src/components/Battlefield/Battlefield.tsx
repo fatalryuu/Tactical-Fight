@@ -44,10 +44,9 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
     }, []);
 
     useEffect(() => {
-        //rules
-        //after round bug
         //melee
         //hover in round info
+        //after round bug
         //end of the game
 
         //highlight

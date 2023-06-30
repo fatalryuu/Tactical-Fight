@@ -8,7 +8,7 @@ const App: React.FC = () => {
     const [notes, setNotes] = useState<Array<JSX.Element>>([]);
     return (
         <div className="app">
-            <Battlefield setNotes={setNotes} notes={notes}/>
+            <Battlefield setNotes={setNotes}/>
             <RoundInfo notes={notes}/>
             <Rules />
         </div>
