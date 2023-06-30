@@ -48,6 +48,7 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
         //after round bug
         //melee
         //hover in round info
+        //end of the game
 
         //highlight
         if (queue.length !== 0) {
@@ -124,8 +125,8 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
         }
     }, [iterator]);
 
-    //defend
-    const handleDefend = () => {
+    //defense
+    const handleDefense = () => {
         queue[iterator].setStatus("defending");
         setNotes(prev => [...prev,
             <Note attacker={queue[iterator]} target={queue[iterator]} behavior={"defending"}
@@ -151,9 +152,9 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
             <div className={s.middle}>
                 <div className={s.round}>Round {round}</div>
                 <div className={s.vs}>VS</div>
-                <button className={s.defend} onClick={handleDefend}>
+                <button className={s.defend} onClick={handleDefense}>
                     <ShieldIcon fontSize={"small"}/>
-                    Defend
+                    Defense
                 </button>
                 <Queue queue={queue} colors={["cyan", "orange"]}/>
             </div>
