@@ -14,7 +14,6 @@ type PropsType = {
     queue: Array<UnitType>,
     iterator: number,
     setIterator: (iterator: number | ((prev: number) => number)) => void,
-    team: number,
     canAttack: Array<number>,
     setNotes: (notes: Array<JSX.Element> | ((prev: Array<JSX.Element>) => Array<JSX.Element>)) => void,
 }
@@ -27,7 +26,6 @@ const Unit: React.FC<PropsType> = (props) => {
         queue,
         iterator,
         setIterator,
-        team,
         canAttack,
         setNotes,
     } = props;
@@ -49,10 +47,10 @@ const Unit: React.FC<PropsType> = (props) => {
             <Note attacker={queue[iterator]} target={instance} behavior={behavior} key={Math.random() * 1000}/>]);
     };
     const handleAction = () => {
-        if (instance.status !== "dead" && processAction(team, currTeam, queue, instance, iterator)) {
+        if (instance.status !== "dead" && processAction(queue, instance, iterator)) {
             createNote();
             setIterator(prev => prev + 1);
-            currTeam ? setCurrTeam(0) : setCurrTeam(1);
+            setCurrTeam(currTeam ? 0 : 1);
         }
     };
 

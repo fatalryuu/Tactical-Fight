@@ -41,7 +41,6 @@ const Team: React.FC<PropsType> = (props) => {
                       queue={queue}
                       iterator={iterator}
                       setIterator={setIterator}
-                      team={index}
                       canAttack={canAttack}
                       setNotes={setNotes}
                       key={i}

@@ -48,17 +48,17 @@ export const checkIfMeleeCanAttack = (queue: Array<Unit>, instance: Unit, iterat
     const attackerRow = getRow(matrix, queue[iterator]);
     const targetRow = getRow(matrix, instance);
 
-    if (attackerRow === 0 || attackerRow === 3) {
-        if (attackerRow === 0) {
-            if (isUnitsAlive(firstTeamFrontLine) && targetRow >= 2) {
-                return false;
-            }
-        } else {
-            if (isUnitsAlive(secondTeamFrontLine) && targetRow <= 1) {
-                return false;
-            }
-        }
-    }
+    // if (attackerRow === 0 || attackerRow === 3) {
+    //     if (attackerRow === 0) {
+    //         if (isUnitsAlive(firstTeamFrontLine) && targetRow >= 2) {
+    //             return false;
+    //         }
+    //     } else {
+    //         if (isUnitsAlive(secondTeamFrontLine) && targetRow <= 1) {
+    //             return false;
+    //         }
+    //     }
+    // }
 
     return true;
 }

@@ -39,13 +39,11 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
         }
         setQueue(queue);
 
+        setNotes([]);
         setCanAttack(getPossibleAttacks(queue[0], queue));
     }, []);
 
     useEffect(() => {
-        //paralyzed
-        //heal only damaged
-        //delete dead from queue
         //rules
         //after round bug
         //melee
@@ -60,6 +58,20 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
         if (queue.length !== 0) {
             if (queue[iterator]) {
                 if (queue[iterator].status?.includes("paralyzed")) {
+                    setIterator(prev => prev + 1);
+                    if (queue[iterator + 1]?.team !== queue[iterator].team) {
+                        setCurrTeam(currTeam ? 0 : 1);
+                    }
+                }
+            } else {
+                setIterator(queue.length);
+            }
+        }
+
+        //for dead
+        if (queue.length !== 0) {
+            if (queue[iterator]) {
+                if (queue[iterator].status === "dead") {
                     setIterator(prev => prev + 1);
                     if (queue[iterator + 1]?.team !== queue[iterator].team) {
                         setCurrTeam(currTeam ? 0 : 1);
