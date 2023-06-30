@@ -47,6 +47,7 @@ export const getPossibleAttacks = (attacker: Unit, queue: Array<Unit>): Array<nu
             canAttack.push(...getAllEnemies(attacker, queue));
             break;
         case Type.MELEE:
+            //temp
             canAttack.push(...getAllEnemies(attacker, queue));
             break;
     }

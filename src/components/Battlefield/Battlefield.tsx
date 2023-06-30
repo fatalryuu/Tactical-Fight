@@ -4,7 +4,7 @@ import Team from "./Team/Team.tsx";
 import UnitType from "../../services/units/Unit.ts";
 import generateUnits from "../../services/tools/generateUnits.ts";
 import Queue from "./Queue/Queue.tsx";
-import ShieldIcon from '@mui/icons-material/Shield';
+import ShieldIcon from "@mui/icons-material/Shield";
 import { getPossibleAttacks } from "../../services/tools/getPossibleAttacks.ts";
 import Note from "../RoundInfo/Note/Note.tsx";
 
@@ -43,12 +43,13 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
     }, []);
 
     useEffect(() => {
-        //melee
         //paralyzed
         //heal only damaged
         //delete dead from queue
-        //hover in round info
         //rules
+        //after round bug
+        //melee
+        //hover in round info
 
         //highlight
         if (queue.length !== 0) {
@@ -56,13 +57,24 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
         }
 
         //for paralyzed
-        // if (iterator && iterator !== queue.length && queue[iterator].status?.includes("paralyzed")) {
-        //     setIterator(prev => prev + 1);
-        // }
+        if (queue.length !== 0) {
+            if (queue[iterator]) {
+                if (queue[iterator].status?.includes("paralyzed")) {
+                    setIterator(prev => prev + 1);
+                    if (queue[iterator + 1]?.team !== queue[iterator].team) {
+                        setCurrTeam(currTeam ? 0 : 1);
+                    }
+                }
+            } else {
+                setIterator(queue.length);
+            }
+        }
 
+        //reset round info for the next round
         if (iterator === 1 && round !== 1) {
             setNotes(prev => [prev[prev.length - 1]]);
         }
+
         //next round
         if (iterator && iterator === queue.length) {
             const newUnits = units
@@ -104,10 +116,11 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
     const handleDefend = () => {
         queue[iterator].setStatus("defending");
         setNotes(prev => [...prev,
-            <Note attacker={queue[iterator]} target={queue[iterator]} behavior={"defending"} key={Math.random() * 1000}/>]);
+            <Note attacker={queue[iterator]} target={queue[iterator]} behavior={"defending"}
+                  key={Math.random() * 1000}/>]);
         currTeam ? setCurrTeam(0) : setCurrTeam(1);
         setIterator(prev => prev + 1);
-    }
+    };
 
     return (
         <div className={s.wrapper}>

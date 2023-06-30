@@ -15,6 +15,19 @@ const isUnitAlive = (unit: Unit): boolean => {
     return unit.status !== "dead";
 };
 
+const isUnitsAlive = (units: Array<Unit | null>): boolean => {
+    return units.filter((unit: Unit | null) => unit === null).length === 0;
+};
+
+const getRow = (matrix: Array<Array<Unit | null>>, unit: Unit) => {
+    for (let i = 0; i < matrix.length; i++) {
+        if (matrix[i].includes(unit)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 export const checkIfMeleeCanAttack = (queue: Array<Unit>, instance: Unit, iterator: number): boolean => {
     const sortedQueue = [...queue].sort((a: Unit, b: Unit) => a.team - b.team);
     const firstTeam = sortPartOfAnArray(sortedQueue, 0, 6);
@@ -32,8 +45,20 @@ export const checkIfMeleeCanAttack = (queue: Array<Unit>, instance: Unit, iterat
     const secondTeamFrontLine = matrix[2];
     const secondTeamBackLine = matrix[3];
 
-    const attackerRow = Math.floor(iterator / 3);
+    const attackerRow = getRow(matrix, queue[iterator]);
+    const targetRow = getRow(matrix, instance);
 
+    if (attackerRow === 0 || attackerRow === 3) {
+        if (attackerRow === 0) {
+            if (isUnitsAlive(firstTeamFrontLine) && targetRow >= 2) {
+                return false;
+            }
+        } else {
+            if (isUnitsAlive(secondTeamFrontLine) && targetRow <= 1) {
+                return false;
+            }
+        }
+    }
 
     return true;
 }
