@@ -1,0 +1,29 @@
+.wrapper {
+
+}
+
+.attacker {
+
+}
+
+.cyan {
+    color: #09e0e0;
+}
+
+.cyan:hover,
+.orange:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.orange {
+    color: orange;
+}
+
+.target {
+
+}
+
+.damage {
+    color: red;
+}

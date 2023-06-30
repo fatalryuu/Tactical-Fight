@@ -6,8 +6,13 @@ import generateUnits from "../../services/tools/generateUnits.ts";
 import Queue from "./Queue/Queue.tsx";
 import ShieldIcon from '@mui/icons-material/Shield';
 import { getPossibleAttacks } from "../../services/tools/getPossibleAttacks.ts";
+import Note from "../RoundInfo/Note/Note.tsx";
 
-const Battlefield: React.FC = () => {
+type PropsType = {
+    setNotes: (notes: Array<JSX.Element> | ((prev: Array<JSX.Element>) => Array<JSX.Element>)) => void,
+}
+
+const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
     const [round, setRound] = useState(1);
     const [units, setUnits] = useState<Array<UnitType>>([]);
     const [currTeam, setCurrTeam] = useState(0);
@@ -40,7 +45,8 @@ const Battlefield: React.FC = () => {
     useEffect(() => {
         //melee
         //paralyzed
-        //round info
+        //heal only damaged
+        //delete dead from queue
         //hover in round info
         //rules
 
@@ -53,6 +59,10 @@ const Battlefield: React.FC = () => {
         // if (iterator && iterator !== queue.length && queue[iterator].status?.includes("paralyzed")) {
         //     setIterator(prev => prev + 1);
         // }
+
+        if (iterator === 1 && round !== 1) {
+            setNotes(prev => [prev[prev.length - 1]]);
+        }
         //next round
         if (iterator && iterator === queue.length) {
             const newUnits = units
@@ -93,6 +103,8 @@ const Battlefield: React.FC = () => {
     //defend
     const handleDefend = () => {
         queue[iterator].setStatus("defending");
+        setNotes(prev => [...prev,
+            <Note attacker={queue[iterator]} target={queue[iterator]} behavior={"defending"} key={Math.random() * 1000}/>]);
         currTeam ? setCurrTeam(0) : setCurrTeam(1);
         setIterator(prev => prev + 1);
     }
@@ -109,6 +121,7 @@ const Battlefield: React.FC = () => {
                   index={0}
                   isActive={!currTeam}
                   canAttack={canAttack}
+                  setNotes={setNotes}
             />
             <div className={s.middle}>
                 <div className={s.round}>Round {round}</div>
@@ -129,6 +142,7 @@ const Battlefield: React.FC = () => {
                   index={1}
                   isActive={!!currTeam}
                   canAttack={canAttack}
+                  setNotes={setNotes}
             />
         </div>
     );

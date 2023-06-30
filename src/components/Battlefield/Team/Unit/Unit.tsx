@@ -4,6 +4,8 @@ import UnitType from "../../../../services/units/Unit.ts";
 import icons from "../../../../services/tools/icons.ts";
 import { getColor, getOverlayStyle } from "../../../../services/tools/hpStyles.ts";
 import { processAction } from "../../../../services/tools/processAction.ts";
+import Note, { BehaviorType } from "../../../RoundInfo/Note/Note.tsx";
+import { Type } from "../../../../services/units/typeEnum.ts";
 
 type PropsType = {
     instance: UnitType,
@@ -14,6 +16,7 @@ type PropsType = {
     setIterator: (iterator: number | ((prev: number) => number)) => void,
     team: number,
     canAttack: Array<number>,
+    setNotes: (notes: Array<JSX.Element> | ((prev: Array<JSX.Element>) => Array<JSX.Element>)) => void,
 }
 
 const Unit: React.FC<PropsType> = (props) => {
@@ -25,11 +28,29 @@ const Unit: React.FC<PropsType> = (props) => {
         iterator,
         setIterator,
         team,
-        canAttack
+        canAttack,
+        setNotes,
     } = props;
 
+    const createNote = () => {
+        let behavior: BehaviorType = "attacking";
+        if (queue[iterator].team === instance.team) {
+            if (queue[iterator].unitType === Type.HEALER_SINGLE) {
+                behavior = "healing_single";
+            } else {
+                behavior = "healing_mass";
+            }
+        } else if (queue[iterator].damage === 0) {
+            behavior = "paralyzing";
+        } else if (queue[iterator].unitType === Type.MAGE) {
+            behavior = "mage_attacking";
+        }
+        setNotes(prev => [...prev,
+            <Note attacker={queue[iterator]} target={instance} behavior={behavior} key={Math.random() * 1000}/>]);
+    };
     const handleAction = () => {
         if (instance.status !== "dead" && processAction(team, currTeam, queue, instance, iterator)) {
+            createNote();
             setIterator(prev => prev + 1);
             currTeam ? setCurrTeam(0) : setCurrTeam(1);
         }
@@ -37,9 +58,7 @@ const Unit: React.FC<PropsType> = (props) => {
 
     const canBeAttacked = canAttack.includes(instance.id) ? `${s.canAttack}` : "";
 
-    const outlineStyle = queue[iterator]?.id === instance.id ?
-        (instance.team === 0 ? `${s.attacker} ${s.cyan}` : `${s.attacker} ${s.orange}`)
-        : "";
+    const outlineStyle = queue[iterator]?.id === instance.id ? `${s.attacker}` : "";
 
     return (
         <div className={s.wrapper} onClick={handleAction}>

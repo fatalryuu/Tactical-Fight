@@ -7,16 +7,12 @@
     cursor: pointer;
 }
 
-.attacker.cyan {
-    box-shadow: 0 0 30px 10px cyan;
-}
-
-.attacker.orange {
-    box-shadow: 0 0 30px 10px orange;
-}
-
 .canAttack {
-    box-shadow: 0 0 30px 10px #00ff23;
+    box-shadow: 0 0 30px 5px #ffea00;
+}
+
+.attacker {
+    box-shadow: 0 0 20px 10px #f500ff;
 }
 
 .header {
