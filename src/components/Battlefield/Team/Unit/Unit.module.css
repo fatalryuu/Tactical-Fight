@@ -15,6 +15,10 @@
     box-shadow: 0 0 30px 10px orange;
 }
 
+.canAttack {
+    box-shadow: 0 0 30px 10px #00ff23;
+}
+
 .header {
     margin-bottom: 10px;
 }

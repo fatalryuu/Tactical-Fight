@@ -5,6 +5,7 @@ import UnitType from "../../services/units/Unit.ts";
 import generateUnits from "../../services/tools/generateUnits.ts";
 import Queue from "./Queue/Queue.tsx";
 import ShieldIcon from '@mui/icons-material/Shield';
+import { getPossibleAttacks } from "../../services/tools/getPossibleAttacks.ts";
 
 const Battlefield: React.FC = () => {
     const [round, setRound] = useState(1);
@@ -12,6 +13,7 @@ const Battlefield: React.FC = () => {
     const [currTeam, setCurrTeam] = useState(0);
     const [queue, setQueue] = useState<Array<UnitType>>([]);
     const [iterator, setIterator] = useState(0);
+    const [canAttack, setCanAttack] = useState<Array<number>>([]);
 
     useEffect(() => {
         const units = generateUnits();
@@ -32,13 +34,25 @@ const Battlefield: React.FC = () => {
         }
         setQueue(queue);
 
+        setCanAttack(getPossibleAttacks(queue[0], queue));
     }, []);
 
     useEffect(() => {
-        //for paralyzed
-        if (iterator && iterator !== queue.length && queue[iterator].status?.includes("paralyzed")) {
-            setIterator(prev => prev + 1);
+        //melee
+        //paralyzed
+        //round info
+        //hover in round info
+        //rules
+
+        //highlight
+        if (queue.length !== 0) {
+            setCanAttack(getPossibleAttacks(queue[iterator], queue));
         }
+
+        //for paralyzed
+        // if (iterator && iterator !== queue.length && queue[iterator].status?.includes("paralyzed")) {
+        //     setIterator(prev => prev + 1);
+        // }
         //next round
         if (iterator && iterator === queue.length) {
             const newUnits = units
@@ -94,6 +108,7 @@ const Battlefield: React.FC = () => {
                   setIterator={setIterator}
                   index={0}
                   isActive={!currTeam}
+                  canAttack={canAttack}
             />
             <div className={s.middle}>
                 <div className={s.round}>Round {round}</div>
@@ -113,6 +128,7 @@ const Battlefield: React.FC = () => {
                   setIterator={setIterator}
                   index={1}
                   isActive={!!currTeam}
+                  canAttack={canAttack}
             />
         </div>
     );
