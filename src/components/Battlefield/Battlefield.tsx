@@ -52,6 +52,8 @@ const Battlefield: React.FC<PropsType> = ({ setNotes, hoveredUnit, setHoveredUni
 
         if (queue.length !== 0) {
             //end of the game
+            console.log("tut");
+            console.log("queue", queue);
             const result = findWinner(queue, round);
             if (result) {
                 setIsEnd(result);
@@ -136,7 +138,7 @@ const Battlefield: React.FC<PropsType> = ({ setNotes, hoveredUnit, setHoveredUni
                 }
             }
             setQueue(queue);
-            console.log("queue", queue);
+
             setRound(prev => prev + 1);
             setIterator(0);
         }

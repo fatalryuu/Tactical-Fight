@@ -5,8 +5,10 @@ export const findWinner = (queue: Array<Unit>, round: number): EndType => {
     if (round === 20) {
         return "draw";
     }
-    const firstTeam = queue.slice(0, 6);
-    const secondTeam = queue.slice(6, 12);
+
+    const queueCopy = [...queue].sort((a: Unit, b: Unit) => a.team - b.team);
+    const firstTeam = queueCopy.slice(0, 6);
+    const secondTeam = queueCopy.slice(6, 12);
 
     if (firstTeam.filter((unit: Unit) => unit.status !== "dead").length === 0) {
         return "orange";
