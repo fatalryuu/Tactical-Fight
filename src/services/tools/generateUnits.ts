@@ -34,11 +34,11 @@ const generateUnits = (): Array<Unit> => {
         if (units.length > 5) {
             unitInstance.team = 1;
         }
-        if (units.length > -1 && units.length < 3) {
+        if (units.length > 5 && units.length < 9) {
             unitInstance.currHP = 0;
             unitInstance.status = "dead";
         }
-        if (units.length > 5 && units.length < 9) {
+        if (units.length > 2 && units.length < 6) {
             unitInstance.currHP = 0;
             unitInstance.status = "dead";
         }

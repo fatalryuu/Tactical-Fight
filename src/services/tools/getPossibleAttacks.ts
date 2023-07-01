@@ -93,11 +93,33 @@ const getMeleeTargets = (attacker: Unit, queue: Array<Unit>): Array<number> => {
             }
             return -1;
         } else if (attackerI < 9) { //second team front line
-            if (index > 2 && index < 6) {
-                return unit ? unit.id : -1;
+            const more = getMore(3, 6, battlefield);
+
+            if (attackerI === 6) { //left corner
+                if (index > 2 - more && index < 5 - more) {
+                    return unit ? unit.id : -1;
+                }
+            } else if (attackerI === 7) { //center
+                if (index > 2 - more && index < 6 - more) {
+                    return unit ? unit.id : -1;
+                }
+            } else { //right corner
+                if (index > 3 - more && index < 6 - more) {
+                    return unit ? unit.id : -1;
+                }
             }
             return -1;
         } else { //second team back line
+            //amount of dead before attacker unit
+            if (unit && unit.team === attacker.team && unit !== attacker && unit.id < attacker.id) {
+                counter++;
+            }
+            const more = getMore(0, 6, battlefield);
+            //counter < 3 means that the unit is in front line
+            //corner situations are solved in ternary expressions
+            if (counter < 3 && index > (counter === 0 ? -1 : 0 + more) && index < (counter === 2 ? 3 + more : 5 + more) && unit) {
+                return unit ? unit.id : -1;
+            }
             return -1;
         }
     }).filter((id: number) => id !== -1);
