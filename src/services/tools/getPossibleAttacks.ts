@@ -22,6 +22,17 @@ const getMore = (start: number, end: number, battlefield: Array<Unit | null>) =>
     return more;
 }
 
+const getCounter = (battlefield: Array<Unit | null>, attacker: Unit): number => {
+    let counter = 0;
+    battlefield.forEach((unit: Unit | null) => {
+        if (unit && unit.team === attacker.team && unit !== attacker && unit.id < attacker.id) {
+            counter++;
+        }
+    })
+
+    return counter;
+}
+
 const getHealersTargets = (attacker: Unit, arr: Array<Unit>): Array<number> => {
     return arr.map((unit: Unit) => {
         if (unit.team === attacker.team) {
@@ -72,7 +83,7 @@ const getMeleeTargets = (attacker: Unit, queue: Array<Unit>): Array<number> => {
             //counter < 3 means that the unit is in front line
             //corner situations are solved in ternary expressions
             if (counter < 3 && index > (counter === 0 ? 6 + more : 5) && index < (counter === 2 ? 8 + more : 9 + more) && unit) {
-                return unit ? unit.id : -1;
+                return unit.id;
             }
             return -1;
         } else if (attackerI < 6) { //first team front line
@@ -111,14 +122,15 @@ const getMeleeTargets = (attacker: Unit, queue: Array<Unit>): Array<number> => {
             return -1;
         } else { //second team back line
             //amount of dead before attacker unit
-            if (unit && unit.team === attacker.team && unit !== attacker && unit.id < attacker.id) {
-                counter++;
-            }
+            counter = getCounter(battlefield, attacker);
             const more = getMore(0, 6, battlefield);
+            console.log("more", more);
+            console.log("counter", counter);
+            console.log("id", unit?.id);
             //counter < 3 means that the unit is in front line
             //corner situations are solved in ternary expressions
-            if (counter < 3 && index > (counter === 0 ? -1 : 0 + more) && index < (counter === 2 ? 3 + more : 5 + more) && unit) {
-                return unit ? unit.id : -1;
+            if (counter < 3 && index > (counter === 2 ? 3 - more : 2 - more) && index < (counter === 0 ? 5 : 6) && unit) {
+                return unit.id;
             }
             return -1;
         }

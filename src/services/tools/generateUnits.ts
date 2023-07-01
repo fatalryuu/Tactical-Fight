@@ -38,7 +38,7 @@ const generateUnits = (): Array<Unit> => {
             unitInstance.currHP = 0;
             unitInstance.status = "dead";
         }
-        if (units.length > 2 && units.length < 6) {
+        if (units.length > 2 && units.length < 5) {
             unitInstance.currHP = 0;
             unitInstance.status = "dead";
         }
