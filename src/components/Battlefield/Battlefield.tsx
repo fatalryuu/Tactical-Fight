@@ -38,9 +38,9 @@ const Battlefield: React.FC<PropsType> = ({ setNotes, hoveredUnit, setHoveredUni
 
         const queue: Array<UnitType> = [];
         if (!randomIndex) {
-            firstQueue.map((unit: UnitType, index: number) => queue.push(unit, secondQueue[index]));
+            firstQueue.forEach((unit: UnitType, index: number) => queue.push(unit, secondQueue[index]));
         } else {
-            secondQueue.map((unit: UnitType, index: number) => queue.push(unit, firstQueue[index]));
+            secondQueue.forEach((unit: UnitType, index: number) => queue.push(unit, firstQueue[index]));
         }
         setQueue(queue);
 
@@ -109,19 +109,34 @@ const Battlefield: React.FC<PropsType> = ({ setNotes, hoveredUnit, setHoveredUni
             const secondQueue = newUnits.filter((unit: UnitType) => unit.team === 1);
 
             const queue: Array<UnitType> = [];
-            let index = 0;
             if (!currTeam) {
-                firstQueue.map((unit: UnitType) => queue.push(unit, secondQueue[index++]));
-                for (let i = index; i < secondQueue.length; i++) {
-                    queue.push(secondQueue[i]);
+                firstQueue.forEach((unit: UnitType, index: number) => {
+                    queue.push(unit);
+                    if (secondQueue[index]) {
+                        queue.push(secondQueue[index]);
+                    }
+                });
+                if (secondQueue.length > firstQueue.length) {
+                    for (let i = firstQueue.length; i < secondQueue.length; i++) {
+                        queue.push(secondQueue[i]);
+                    }
                 }
             } else {
-                secondQueue.map((unit: UnitType) => queue.push(unit, firstQueue[index++]));
-                for (let i = index; i < firstQueue.length; i++) {
-                    queue.push(firstQueue[i]);
+                secondQueue.forEach((unit: UnitType, index: number) => {
+                    queue.push(unit);
+                    if (firstQueue[index]) {
+                        queue.push(firstQueue[index]);
+                    }
+                });
+
+                if (firstQueue.length > secondQueue.length) {
+                    for (let i = secondQueue.length; i < firstQueue.length; i++) {
+                        queue.push(firstQueue[i]);
+                    }
                 }
             }
             setQueue(queue);
+            console.log("queue", queue);
             setRound(prev => prev + 1);
             setIterator(0);
         }
