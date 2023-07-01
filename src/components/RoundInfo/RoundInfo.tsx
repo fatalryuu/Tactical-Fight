@@ -2,7 +2,7 @@ import React from "react";
 import s from "./RoundInfo.module.css";
 
 type PropsType = {
-    notes: Array<JSX.Element>
+    notes: Array<JSX.Element>,
 }
 
 const RoundInfo: React.FC<PropsType> = ({ notes }) => {

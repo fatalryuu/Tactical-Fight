@@ -8,9 +8,10 @@ type PropsType = {
     attacker: UnitType,
     target: UnitType,
     behavior: BehaviorType,
+    setHoveredUnit: (hoveredUnit: number | ((prev: number) => number)) => void,
 }
 
-const Note: React.FC<PropsType> = ({ attacker, target, behavior }) => {
+const Note: React.FC<PropsType> = ({ attacker, target, behavior, setHoveredUnit }) => {
     let action = "";
     switch (behavior) {
         case "attacking":
@@ -34,12 +35,18 @@ const Note: React.FC<PropsType> = ({ attacker, target, behavior }) => {
     }
     return (
         <div className={s.wrapper}>
-            <span className={`${s.attacker} ${attacker.team ? s.cyan : s.orange}`}>
+            <span className={`${s.attacker} ${attacker.team ? s.cyan : s.orange}`}
+                  onMouseEnter={() => setHoveredUnit(attacker.id)}
+                  onMouseLeave={() => setHoveredUnit(-1)}
+            >
                 {attacker.name}
             </span>
             &nbsp;{action}&nbsp;
             {(behavior === "attacking" || behavior === "paralyzing" || behavior === "healing_single") &&
-                <span className={`${s.target} ${target.team ? s.cyan : s.orange}`}>
+                <span className={`${s.target} ${target.team ? s.cyan : s.orange}`}
+                      onMouseEnter={() => setHoveredUnit(target.id)}
+                      onMouseLeave={() => setHoveredUnit(-1)}
+                >
                     {target.name}
                 </span>
             }

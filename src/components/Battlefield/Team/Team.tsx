@@ -15,6 +15,8 @@ type PropsType = {
     isActive: boolean,
     canAttack: Array<number>,
     setNotes: (notes: Array<JSX.Element> | ((prev: Array<JSX.Element>) => Array<JSX.Element>)) => void,
+    hoveredUnit: number,
+    setHoveredUnit: (hoveredUnit: number | ((prev: number) => number)) => void,
 }
 
 const Team: React.FC<PropsType> = (props) => {
@@ -30,6 +32,8 @@ const Team: React.FC<PropsType> = (props) => {
         isActive,
         canAttack,
         setNotes,
+        hoveredUnit,
+        setHoveredUnit,
     } = props
 
     const thisTeamUnits =
@@ -43,6 +47,8 @@ const Team: React.FC<PropsType> = (props) => {
                       setIterator={setIterator}
                       canAttack={canAttack}
                       setNotes={setNotes}
+                      hoveredUnit={hoveredUnit}
+                      setHoveredUnit={setHoveredUnit}
                       key={i}
                 />);
     return (

@@ -14,14 +14,14 @@ type UnitClass = new () => Unit;
 const generateUnits = (): Array<Unit> => {
     const unitClasses: Array<UnitClass> = [
         Skeleton,
-        // Centaur,
-        // Bandit,
-        // ElfArcher,
-        // SkeletonMage,
-        // Archimage,
-        // Monk,
-        // Bishop,
-        // Sirena,
+        Centaur,
+        Bandit,
+        ElfArcher,
+        SkeletonMage,
+        Archimage,
+        Monk,
+        Bishop,
+        Sirena,
     ];
 
     const units: Array<Unit> = [];
@@ -33,14 +33,6 @@ const generateUnits = (): Array<Unit> => {
         unitInstance.id = units.length;
         if (units.length > 5) {
             unitInstance.team = 1;
-        }
-        if (units.length > 5 && units.length < 9) {
-            unitInstance.currHP = 0;
-            unitInstance.status = "dead";
-        }
-        if (units.length > 2 && units.length < 5) {
-            unitInstance.currHP = 0;
-            unitInstance.status = "dead";
         }
         units.push(unitInstance);
     }

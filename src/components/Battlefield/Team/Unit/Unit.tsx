@@ -15,6 +15,8 @@ type PropsType = {
     setIterator: (iterator: number | ((prev: number) => number)) => void,
     canAttack: Array<number>,
     setNotes: (notes: Array<JSX.Element> | ((prev: Array<JSX.Element>) => Array<JSX.Element>)) => void,
+    hoveredUnit: number,
+    setHoveredUnit: (hoveredUnit: number | ((prev: number) => number)) => void,
 }
 
 const Unit: React.FC<PropsType> = (props) => {
@@ -27,6 +29,8 @@ const Unit: React.FC<PropsType> = (props) => {
         setIterator,
         canAttack,
         setNotes,
+        hoveredUnit,
+        setHoveredUnit,
     } = props;
 
     const createNote = () => {
@@ -43,7 +47,7 @@ const Unit: React.FC<PropsType> = (props) => {
             behavior = "mage_attacking";
         }
         setNotes(prev => [...prev,
-            <Note attacker={queue[iterator]} target={instance} behavior={behavior} key={Math.random() * 1000}/>]);
+            <Note attacker={queue[iterator]} target={instance} behavior={behavior} setHoveredUnit={setHoveredUnit} key={Math.random() * 1000}/>]);
     };
     const handleAction = () => {
         if (instance.status !== "dead" && canAttack.includes(instance.id)) {
@@ -56,12 +60,14 @@ const Unit: React.FC<PropsType> = (props) => {
 
     const canBeAttacked = canAttack.includes(instance.id) ? `${s.canAttack}` : "";
 
-    const outlineStyle = queue[iterator]?.id === instance.id ? `${s.attacker}` : "";
+    const attacker = queue[iterator]?.id === instance.id ? `${s.attacker}` : "";
+
+    const hoveredInRoundInfo = hoveredUnit === instance.id ? `${s.hovered}` : "";
 
     return (
         <div className={s.wrapper} onClick={handleAction}>
             <h2 className={s.header}>{instance.name}</h2>
-            <div className={`${s.image__wrapper} ${canBeAttacked} ${outlineStyle}`}>
+            <div className={`${s.image__wrapper} ${canBeAttacked} ${attacker} ${hoveredInRoundInfo}`}>
                 <img src={instance.src} alt={instance.name}
                      className={instance.currHP === 0 ? `${s.image} ${s.dead}` : s.image}/>
                 <img src={icons[instance.unitType]} alt="" className={s.type}/>

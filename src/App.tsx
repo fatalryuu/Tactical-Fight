@@ -6,10 +6,11 @@ import Rules from "./components/Rules/Rules.tsx";
 
 const App: React.FC = () => {
     const [notes, setNotes] = useState<Array<JSX.Element>>([]);
+    const [hoveredUnit, setHoveredUnit] = useState<number>(-1);
     return (
         <div className="app">
-            <Battlefield setNotes={setNotes}/>
-            <RoundInfo notes={notes}/>
+            <Battlefield setNotes={setNotes} hoveredUnit={hoveredUnit} setHoveredUnit={setHoveredUnit}/>
+            <RoundInfo notes={notes} />
             <Rules />
         </div>
     );

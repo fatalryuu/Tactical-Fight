@@ -15,6 +15,10 @@
     box-shadow: 0 0 20px 10px #f500ff;
 }
 
+.hovered {
+    box-shadow: 0 0 20px 10px #11ff00;
+}
+
 .header {
     margin-bottom: 10px;
 }

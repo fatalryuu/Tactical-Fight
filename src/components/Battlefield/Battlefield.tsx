@@ -10,9 +10,11 @@ import Note from "../RoundInfo/Note/Note.tsx";
 
 type PropsType = {
     setNotes: (notes: Array<JSX.Element> | ((prev: Array<JSX.Element>) => Array<JSX.Element>)) => void,
+    hoveredUnit: number,
+    setHoveredUnit: (hoveredUnit: number | ((prev: number) => number)) => void,
 }
 
-const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
+const Battlefield: React.FC<PropsType> = ({ setNotes, hoveredUnit, setHoveredUnit }) => {
     const [round, setRound] = useState(1);
     const [units, setUnits] = useState<Array<UnitType>>([]);
     const [currTeam, setCurrTeam] = useState(0);
@@ -44,7 +46,6 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
     }, []);
 
     useEffect(() => {
-        //melee
         //hover in round info
         //after round bug
         //end of the game
@@ -129,7 +130,7 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
         queue[iterator].setStatus("defending");
         setNotes(prev => [...prev,
             <Note attacker={queue[iterator]} target={queue[iterator]} behavior={"defending"}
-                  key={Math.random() * 1000}/>]);
+                  setHoveredUnit={setHoveredUnit} key={Math.random() * 1000}/>]);
         currTeam ? setCurrTeam(0) : setCurrTeam(1);
         setIterator(prev => prev + 1);
     };
@@ -147,6 +148,8 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
                   isActive={!currTeam}
                   canAttack={canAttack}
                   setNotes={setNotes}
+                  hoveredUnit={hoveredUnit}
+                  setHoveredUnit={setHoveredUnit}
             />
             <div className={s.middle}>
                 <div className={s.round}>Round {round}</div>
@@ -168,6 +171,8 @@ const Battlefield: React.FC<PropsType> = ({ setNotes }) => {
                   isActive={!!currTeam}
                   canAttack={canAttack}
                   setNotes={setNotes}
+                  hoveredUnit={hoveredUnit}
+                  setHoveredUnit={setHoveredUnit}
             />
         </div>
     );

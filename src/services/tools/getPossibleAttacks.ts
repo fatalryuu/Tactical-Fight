@@ -124,9 +124,6 @@ const getMeleeTargets = (attacker: Unit, queue: Array<Unit>): Array<number> => {
             //amount of dead before attacker unit
             counter = getCounter(battlefield, attacker);
             const more = getMore(0, 6, battlefield);
-            console.log("more", more);
-            console.log("counter", counter);
-            console.log("id", unit?.id);
             //counter < 3 means that the unit is in front line
             //corner situations are solved in ternary expressions
             if (counter < 3 && index > (counter === 2 ? 3 - more : 2 - more) && index < (counter === 0 ? 5 : 6) && unit) {
