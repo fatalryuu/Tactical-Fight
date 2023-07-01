@@ -7,14 +7,17 @@ import Queue from "./Queue/Queue.tsx";
 import ShieldIcon from "@mui/icons-material/Shield";
 import { getPossibleAttacks } from "../../services/tools/getPossibleAttacks.ts";
 import Note from "../RoundInfo/Note/Note.tsx";
+import { EndType } from "../../App.tsx";
+import { findWinner } from "../../services/tools/endOfGame.ts";
 
 type PropsType = {
     setNotes: (notes: Array<JSX.Element> | ((prev: Array<JSX.Element>) => Array<JSX.Element>)) => void,
     hoveredUnit: number,
     setHoveredUnit: (hoveredUnit: number | ((prev: number) => number)) => void,
+    setIsEnd: (isEnd: EndType | ((prev: EndType) => EndType)) => void,
 }
 
-const Battlefield: React.FC<PropsType> = ({ setNotes, hoveredUnit, setHoveredUnit }) => {
+const Battlefield: React.FC<PropsType> = ({ setNotes, hoveredUnit, setHoveredUnit, setIsEnd }) => {
     const [round, setRound] = useState(1);
     const [units, setUnits] = useState<Array<UnitType>>([]);
     const [currTeam, setCurrTeam] = useState(0);
@@ -46,17 +49,18 @@ const Battlefield: React.FC<PropsType> = ({ setNotes, hoveredUnit, setHoveredUni
     }, []);
 
     useEffect(() => {
-        //hover in round info
-        //after round bug
-        //end of the game
 
-        //highlight
         if (queue.length !== 0) {
+            //end of the game
+            const result = findWinner(queue, round);
+            if (result) {
+                setIsEnd(result);
+            }
+
+            //highlight
             setCanAttack(getPossibleAttacks(queue[iterator], queue));
-        }
 
-        //for paralyzed
-        if (queue.length !== 0) {
+            //for paralyzed
             if (queue[iterator]) {
                 if (queue[iterator].status?.includes("paralyzed")) {
                     setIterator(prev => prev + 1);
@@ -67,10 +71,8 @@ const Battlefield: React.FC<PropsType> = ({ setNotes, hoveredUnit, setHoveredUni
             } else {
                 setIterator(queue.length);
             }
-        }
 
-        //for dead
-        if (queue.length !== 0) {
+            //for dead
             if (queue[iterator]) {
                 if (queue[iterator].status === "dead") {
                     setIterator(prev => prev + 1);
