@@ -3,7 +3,6 @@ import s from "./Unit.module.css";
 import UnitType from "../../../../services/units/Unit.ts";
 import icons from "../../../../services/tools/icons.ts";
 import { getColor, getOverlayStyle } from "../../../../services/tools/hpStyles.ts";
-import { processAction } from "../../../../services/tools/processAction.ts";
 import Note, { BehaviorType } from "../../../RoundInfo/Note/Note.tsx";
 import { Type } from "../../../../services/units/typeEnum.ts";
 
@@ -47,7 +46,8 @@ const Unit: React.FC<PropsType> = (props) => {
             <Note attacker={queue[iterator]} target={instance} behavior={behavior} key={Math.random() * 1000}/>]);
     };
     const handleAction = () => {
-        if (instance.status !== "dead" && processAction(queue, instance, iterator)) {
+        if (instance.status !== "dead" && canAttack.includes(instance.id)) {
+            queue[iterator].behavior.do(instance, queue[iterator], queue);
             createNote();
             setIterator(prev => prev + 1);
             setCurrTeam(currTeam ? 0 : 1);
