@@ -35,7 +35,7 @@ const Note: React.FC<PropsType> = ({ attacker, target, behavior, setHoveredUnit 
     }
     return (
         <div className={s.wrapper}>
-            <span className={`${s.attacker} ${attacker.team ? s.cyan : s.orange}`}
+            <span className={`${s.attacker} ${attacker.team ? s.orange : s.cyan}`}
                   onMouseEnter={() => setHoveredUnit(attacker.id)}
                   onMouseLeave={() => setHoveredUnit(-1)}
             >
@@ -43,7 +43,7 @@ const Note: React.FC<PropsType> = ({ attacker, target, behavior, setHoveredUnit 
             </span>
             &nbsp;{action}&nbsp;
             {(behavior === "attacking" || behavior === "paralyzing" || behavior === "healing_single") &&
-                <span className={`${s.target} ${target.team ? s.cyan : s.orange}`}
+                <span className={`${s.target} ${target.team ? s.orange : s.cyan}`}
                       onMouseEnter={() => setHoveredUnit(target.id)}
                       onMouseLeave={() => setHoveredUnit(-1)}
                 >

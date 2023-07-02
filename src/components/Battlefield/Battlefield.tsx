@@ -52,7 +52,7 @@ const Battlefield: React.FC<PropsType> = ({ setNotes, hoveredUnit, setHoveredUni
 
         if (queue.length !== 0) {
             //end of the game
-            const result = findWinner(queue, round);
+            const result = findWinner(units, round);
             if (result) {
                 setIsEnd(result);
             }
