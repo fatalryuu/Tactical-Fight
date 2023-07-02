@@ -58,7 +58,7 @@ const Battlefield: React.FC<PropsType> = ({ setNotes, hoveredUnit, setHoveredUni
             }
 
             //highlight
-            setCanAttack(getPossibleAttacks(queue[iterator], queue));
+            setCanAttack(getPossibleAttacks(queue[iterator], units));
 
             //for paralyzed
             if (queue[iterator]) {

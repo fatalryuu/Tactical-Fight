@@ -12,7 +12,7 @@ export default class Skeleton implements Unit {
     unitType: Type = Type.MELEE;
     maxHP = 100;
     currHP = 100;
-    damage = 25;
+    damage = 250;
     initiative = 50;
     behavior: Behavior;
     team = 0;
